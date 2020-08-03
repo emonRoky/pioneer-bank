@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pioneer-bank</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            padding: 100px;
+        }
+
+        .submit-area {
+            border-radius: 10px;
+            box-shadow: 5px 5px 10px gray;
+        }
+
+        #trangation {
+            display: none;
+        }
+
+        .Deposit {
+            background-color: slateblue;
+        }
+
+        .Withdraw {
+            background-color: lightsalmon;
+        }
+
+        .Balence {
+            background-color: orange;
+        }
+
+        .stutas {
+            margin: 0 20px;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="login-area">
+            <h1 class="text-center">Welcome to pioneer bank</h1>
+            <div class="submit-area mt-5 p-5">
+                <h4>login</h4>
+                <input type="email" class="form-control" name="" id="email" placeholder="Email">
+                <br>
+                <input type="password" class="form-control" name="" id="pass" placeholder="password">
+                <br>
+                <button id="submit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+        <div id="trangation">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="Deposit stutas">
+                        <h5>Deposit</h5>
+                        <h2>$ <span id="currentDeposit">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="Withdraw stutas">
+                        <h5>Withdraw</h5>
+                        <h2>$ <span id="currentWithdraw">00</span></h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="Balence stutas">
+                        <h5>Balence</h5>
+                        <h2>$<span id="currentBalence">1200</span></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="submit-area mt-5 p-5">
+                        <h4>Deposit</h4>
+                        <input type="text" id="input-deposit" class="form-control" placeholder="$Amount yoy want to Deposit">
+                        <br>
+                        <button id="deposit" class="btn btn-success">Deposit</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="submit-area mt-5 p-5">
+                        <h4>Withdraw</h4>
+                        <input type="text" id="input-withdraw" class="form-control" placeholder="$Amount yoy want to Withdraw">
+                        <br>
+                        <button id="withdrawbtn" class="btn btn-success">Withdraw</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+
+    <script>
+        // Login event handeler
+        const sbmtbtn = document.getElementById("submit");
+        sbmtbtn.addEventListener("click", function () {
+            const loginArea = document.getElementById("login-area");
+            loginArea.style.display = "none";
+            const trans = document.getElementById("trangation");
+            trans.style.display = "block";
+        })
+
+        // Deposit event handeler
+
+        const depositBtn = document.getElementById("deposit");
+        depositBtn.addEventListener("click", function (){
+            const depositNumber = getInputNumber("input-deposit");
+
+            updateSpanText("currentDeposit",depositNumber);
+            updateSpanText("currentBalence",depositNumber);
+
+            document.getElementById("input-deposit").value = "";
+        })
+        // withdraw event handeler
+        const withdrawBtn = document.getElementById("withdrawbtn");
+        withdrawBtn.addEventListener("click", function (){
+            const withdrawNumber = getInputNumber("input-withdraw")
+            updateSpanText("currentWithdraw",withdrawNumber);
+            updateSpanText("currentBalence",-1* withdrawNumber);
+
+            document.getElementById("input-withdraw").value = "";
+
+        })
+
+        function getInputNumber(id){
+            const Amount = document.getElementById(id).value;
+            const amountNumber = parseFloat(Amount);
+            return amountNumber;
+        }    
+
+
+        function updateSpanText(id,depositNumber){
+            const current= document.getElementById(id).innerText;
+            const currentNumber = parseFloat(current);
+            const total = currentNumber + depositNumber;
+            document.getElementById(id).innerText = total;
+        }
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+</body>
+
+</html>
